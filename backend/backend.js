@@ -43,9 +43,9 @@ app.get("/AllUsers", async (req, res) => {
 
 
 //get user by ID
-app.get('/user/:id', async (req, res) => {
+app.get('/user/:name', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ name: name });
     if (!user){
         return res.status(404).json({ message: "User not found" });
     }
