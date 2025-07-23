@@ -17,7 +17,7 @@ export default function ContactUs() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3000/contactus",
+        "https://contactus-e8m8.onrender.com/contactus",
         {
           name,
           email,
