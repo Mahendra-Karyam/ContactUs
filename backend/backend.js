@@ -41,26 +41,26 @@ app.get("/AllUsers", async (req, res) => {
     }
 });
 
-
-//get user by ID
 app.get('/user/:name', async (req, res) => {
   try {
-    const user = await User.findOne({ Name: name });
-    if (!user){
-        return res.status(404).json({ message: "User not found" });
+    const name = req.params.name; // ✅ Fix: extract 'name' from params
+    const user = await User.findOne({ Name: name }); // Assuming your DB field is 'Name'
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-    else{
-        res.status(200).json({
-            success: true,
-            message: "User fetched successfully",
-            user: user
-        });
-    }
-    
+
+    res.status(200).json({
+      success: true,
+      message: "User fetched successfully",
+      user: user,
+    });
   } catch (error) {
-        res.status(500).json({ message: "Error fetching user", error });
+    console.error('Error fetching user:', error); // Optional: helpful log
+    res.status(500).json({ message: "Error fetching user", error });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
